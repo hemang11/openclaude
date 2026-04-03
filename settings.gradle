@@ -1,0 +1,15 @@
+rootProject.name = 'openclaude'
+
+include(
+    'app-cli',
+    'auth',
+    'core',
+    'provider-spi',
+    'provider-anthropic',
+    'provider-openai',
+    'provider-gemini',
+    'provider-mistral',
+    'provider-kimi',
+    'provider-bedrock'
+)
+

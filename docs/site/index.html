@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OpenClaude Architecture Explorer</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">OpenClaude Docs</p>
+        <h1>Architecture Explorer</h1>
+        <p class="lede">
+          A static map of the active OpenClaude runtime: Java backend, Ink UI,
+          stdio protocol, provider SPI, tool loop, session persistence, and
+          command surfaces.
+        </p>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-card">
+          <span class="meta-label">Active build</span>
+          <strong>Gradle multi-module + Ink UI</strong>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">Primary entrypoints</span>
+          <strong>`app-cli` + `ui-ink`</strong>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">Protocol</span>
+          <strong>typed stdio</strong>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <label class="search-label" for="search">Search modules, commands, tools</label>
+        <input id="search" class="search" type="search" placeholder="query engine, webfetch, /compact..." />
+
+        <nav class="toc">
+          <a href="#overview">Overview</a>
+          <a href="#modules">Modules</a>
+          <a href="#flows">Flows</a>
+          <a href="#persistence">Persistence</a>
+          <a href="#commands">Commands</a>
+          <a href="#tools">Tools</a>
+          <a href="#ui">UI pipeline</a>
+          <a href="#notes">Notes</a>
+        </nav>
+      </aside>
+
+      <section class="content">
+        <section id="overview" class="panel">
+          <h2>Runtime overview</h2>
+          <pre class="diagram">User input
+  -> Ink UI (ui-ink)
+  -> stdio request/event protocol
+  -> Java stdio server (app-cli)
+  -> prompt router / query engine (core)
+  -> provider plugin (provider-*)
+  -> tool runtime / permissions / hooks
+  -> persisted session + state
+  -> snapshot + events back to Ink
+  -> normalized transcript render</pre>
+          <div class="summary-grid">
+            <article class="summary-card">
+              <h3>Backend kernel</h3>
+              <p>`core` owns the query engine, tool loop, session model, compaction, diagnostics, and provider routing.</p>
+            </article>
+            <article class="summary-card">
+              <h3>Operator shell</h3>
+              <p>`app-cli` owns command execution, stdio IPC, provider/session/model services, and Java entrypoints.</p>
+            </article>
+            <article class="summary-card">
+              <h3>Terminal frontend</h3>
+              <p>`ui-ink` owns prompt input, overlays, transcript normalization, render grouping, and status UX.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="modules" class="panel">
+          <div class="panel-heading">
+            <h2>Active modules</h2>
+            <p>These correspond to the modules included in <code>settings.gradle</code>.</p>
+          </div>
+          <div id="module-grid" class="card-grid"></div>
+        </section>
+
+        <section id="flows" class="panel">
+          <div class="panel-heading">
+            <h2>Execution flows</h2>
+            <p>High-value runtime paths that define the architecture.</p>
+          </div>
+          <div id="flow-grid" class="card-grid"></div>
+        </section>
+
+        <section id="persistence" class="panel">
+          <div class="panel-heading">
+            <h2>Persistence and state</h2>
+            <p>The durable artifacts that make sessions, provider state, and memory survive restarts.</p>
+          </div>
+          <div id="persistence-grid" class="card-grid"></div>
+        </section>
+
+        <section id="commands" class="panel">
+          <div class="panel-heading">
+            <h2>Slash commands</h2>
+            <p>Catalog from the backend command surface, grouped by execution owner.</p>
+          </div>
+          <div class="chip-row">
+            <button class="chip active" data-command-filter="all">All</button>
+            <button class="chip" data-command-filter="backend">Backend</button>
+            <button class="chip" data-command-filter="frontend">Frontend</button>
+            <button class="chip" data-command-filter="hybrid">Hybrid</button>
+          </div>
+          <div id="command-grid" class="card-grid"></div>
+        </section>
+
+        <section id="tools" class="panel">
+          <div class="panel-heading">
+            <h2>Built-in tools</h2>
+            <p>Current active tool runtime from <code>DefaultToolRuntime</code>.</p>
+          </div>
+          <div id="tool-grid" class="card-grid"></div>
+        </section>
+
+        <section id="ui" class="panel">
+          <div class="panel-heading">
+            <h2>UI and transcript pipeline</h2>
+            <p>The Ink app reconstructs renderable state from typed snapshots instead of rendering raw terminal text.</p>
+          </div>
+          <pre class="diagram">BackendSnapshot.messages
+  -> reorderMessagesForUI(...)
+  -> buildMessageLookups(...)
+  -> groupToolUses(...)
+  -> collapseReadSearchGroups(...)
+  -> RenderableMessage[]
+  -> Transcript / Message components</pre>
+          <div id="ui-grid" class="card-grid"></div>
+        </section>
+
+        <section id="notes" class="panel">
+          <div class="panel-heading">
+            <h2>Important notes</h2>
+          </div>
+          <ul class="notes">
+            <li>The active runtime is the <code>com.openclaude.*</code> Gradle build, not the parallel <code>io.openclaude.*</code> trees.</li>
+            <li>The backend is manually composed in <code>OpenClaudeApplication</code>; there is no Spring container.</li>
+            <li>The UI is a separate process that talks to the backend over stdio, not an embedded Java terminal renderer.</li>
+            <li>Sessions, state, and session-memory are persisted under <code>OPENCLAUDE_HOME</code> or <code>~/.openclaude</code>.</li>
+          </ul>
+        </section>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+  </html>

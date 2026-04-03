@@ -1,0 +1,25 @@
+{
+  "name": "@openclaude/ui-ink",
+  "version": "0.1.0-snapshot",
+  "private": true,
+  "type": "module",
+  "description": "React/Ink frontend for OpenClaude using stdio IPC to the Java backend",
+  "scripts": {
+    "dev": "node --import tsx src/index.tsx",
+    "test": "node --import tsx --test --test-concurrency=1 src/*.test.ts src/*.test.tsx src/**/*.test.ts src/**/*.test.tsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "ink": "^5.1.0",
+    "marked": "^17.0.5",
+    "react": "^18.3.1",
+    "strip-ansi": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/react": "^18.3.18",
+    "ink-testing-library": "^4.0.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}

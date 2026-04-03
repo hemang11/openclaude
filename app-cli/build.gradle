@@ -1,0 +1,36 @@
+plugins {
+    id 'application'
+}
+
+application {
+    mainClass = 'com.openclaude.cli.OpenClaudeApplication'
+}
+
+tasks.named('startScripts') {
+    applicationName = 'openclaude'
+}
+
+distributions {
+    main {
+        distributionBaseName = 'openclaude'
+    }
+}
+
+dependencies {
+    implementation project(':auth')
+    implementation project(':core')
+    implementation project(':provider-openai')
+    implementation project(':provider-spi')
+
+    runtimeOnly project(':provider-anthropic')
+    runtimeOnly project(':provider-gemini')
+    runtimeOnly project(':provider-mistral')
+    runtimeOnly project(':provider-kimi')
+    runtimeOnly project(':provider-bedrock')
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.3'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.3'
+    implementation 'info.picocli:picocli:4.7.6'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+}
