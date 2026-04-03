@@ -140,6 +140,35 @@ The Homebrew package exposes:
 - `openclaude`: launches the Ink UI
 - `openclaude-backend`: runs the packaged Java backend directly
 
+## NPM Packaging
+
+OpenClaude can also be shipped as an npm CLI package.
+
+Build the npm package:
+
+```bash
+cd /Users/hshrimali-mbp/Desktop/claude-code-java/openclaude
+./scripts/package-npm-release.sh 0.1.0
+```
+
+Publish it:
+
+```bash
+cd /Users/hshrimali-mbp/Desktop/claude-code-java/openclaude
+./scripts/publish-npm-release.sh 0.1.0
+```
+
+Install after publish:
+
+```bash
+npm install -g @hemang_123/openclaude
+```
+
+The npm package exposes:
+
+- `openclaude`: launches the Ink UI
+- `openclaude-backend`: runs the packaged Java backend directly
+
 Run the Ink UI against the packaged backend:
 
 ```bash
@@ -258,6 +287,7 @@ export OPENCLAUDE_HOME=/Users/hshrimali-mbp/Desktop/claude-code-java/openclaude/
 - `docs/commands.md`: slash-command surface map
 - `docs/tools.md`: built-in tool runtime catalog
 - `docs/homebrew-release.md`: release packaging and Homebrew publishing flow
+- `docs/npm-release.md`: npm CLI packaging and publish flow
 - `docs/site/index.html`: static interactive architecture explorer
 - `IMPLEMENTATION.md`: live architecture and implementation notes
 - `DRIFT.md`: deliberate deviations from the TypeScript reference implementation
