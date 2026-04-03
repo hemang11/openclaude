@@ -2,6 +2,7 @@
 .idea/
 .gradle/
 build/
+dist/
 **/build/
 ui-ink/node_modules/
 .tmp-openclaude-home/

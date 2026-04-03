@@ -1,5 +1,6 @@
 package com.openclaude.cli.service;
 
+import com.openclaude.cli.OpenClaudeCommand;
 import com.openclaude.core.config.OpenClaudeEffort;
 import com.openclaude.core.config.OpenClaudePaths;
 import com.openclaude.core.config.OpenClaudeSettings;
@@ -646,7 +647,7 @@ public final class CommandService {
                 "OpenClaude runtime status for the current workspace.",
                 List.of(
                         new PanelSection("Overview", List.of(
-                                "Version: 0.1.0-SNAPSHOT",
+                                "Version: " + OpenClaudeCommand.VERSION,
                                 "Active provider: " + (activeProvider == null ? "none" : activeProvider.displayName()),
                                 "Active model: " + (state.activeModelId() == null ? "<default>" : state.activeModelId()),
                                 "Session: " + (summary.sessionId() == null ? "none" : summary.sessionId()),

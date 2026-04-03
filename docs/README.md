@@ -11,6 +11,7 @@ It is written against the code that is actually wired today, not against the bro
 3. [execution-flows.md](/Users/hshrimali-mbp/Desktop/claude-code-java/openclaude/docs/execution-flows.md)
 4. [commands.md](/Users/hshrimali-mbp/Desktop/claude-code-java/openclaude/docs/commands.md)
 5. [tools.md](/Users/hshrimali-mbp/Desktop/claude-code-java/openclaude/docs/tools.md)
+6. [homebrew-release.md](/Users/hshrimali-mbp/Desktop/claude-code-java/openclaude/docs/homebrew-release.md)
 
 ## Interactive Explorer
 

@@ -3,7 +3,9 @@ plugins {
 }
 
 group = 'com.openclaude'
-version = '0.1.0-SNAPSHOT'
+version = findProperty('openclaudeVersion')
+        ?: System.getenv('OPENCLAUDE_VERSION')
+        ?: '0.1.0-SNAPSHOT'
 
 allprojects {
     group = rootProject.group

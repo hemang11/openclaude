@@ -102,6 +102,7 @@ final class OpenAiCodexResponsesClient {
         String osName = System.getProperty("os.name", "unknown-os");
         String osVersion = System.getProperty("os.version", "unknown-version");
         String osArch = System.getProperty("os.arch", "unknown-arch");
-        return "openclaude/0.1.0 (" + osName + " " + osVersion + "; " + osArch + ")";
+        String version = System.getProperty("openclaude.version", "0.1.0-SNAPSHOT");
+        return "openclaude/" + version + " (" + osName + " " + osVersion + "; " + osArch + ")";
     }
 }

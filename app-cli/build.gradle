@@ -4,6 +4,7 @@ plugins {
 
 application {
     mainClass = 'com.openclaude.cli.OpenClaudeApplication'
+    applicationDefaultJvmArgs = ["-Dopenclaude.version=${project.version}"]
 }
 
 tasks.named('startScripts') {

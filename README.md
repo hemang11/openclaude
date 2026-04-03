@@ -103,6 +103,43 @@ cd /Users/hshrimali-mbp/Desktop/claude-code-java/openclaude
 ./build.sh
 ```
 
+## Homebrew Packaging
+
+OpenClaude can be packaged and shipped as a Homebrew tap artifact from this repo.
+
+Build the release tarball and formula:
+
+```bash
+cd /Users/hshrimali-mbp/Desktop/claude-code-java/openclaude
+./scripts/package-homebrew-release.sh 0.1.0
+```
+
+That produces:
+
+- `dist/openclaude-0.1.0-macos-universal.tar.gz`
+- `Formula/openclaude.rb`
+
+Upload the tarball to GitHub Releases:
+
+```bash
+cd /Users/hshrimali-mbp/Desktop/claude-code-java/openclaude
+./scripts/publish-homebrew-release.sh 0.1.0
+```
+
+Once the release asset and formula are pushed, installation is:
+
+```bash
+brew tap hemang11/openclaude https://github.com/hemang11/openclaude
+brew install openclaude
+```
+
+Plain `brew install openclaude` without tapping first only works if the formula is accepted into `homebrew/core`. For a repo-hosted tap, the normal flow is `brew tap ...` once and then `brew install openclaude`.
+
+The Homebrew package exposes:
+
+- `openclaude`: launches the Ink UI
+- `openclaude-backend`: runs the packaged Java backend directly
+
 Run the Ink UI against the packaged backend:
 
 ```bash
@@ -220,6 +257,7 @@ export OPENCLAUDE_HOME=/Users/hshrimali-mbp/Desktop/claude-code-java/openclaude/
 - `docs/execution-flows.md`: startup, prompt, tool, compaction, and render flows
 - `docs/commands.md`: slash-command surface map
 - `docs/tools.md`: built-in tool runtime catalog
+- `docs/homebrew-release.md`: release packaging and Homebrew publishing flow
 - `docs/site/index.html`: static interactive architecture explorer
 - `IMPLEMENTATION.md`: live architecture and implementation notes
 - `DRIFT.md`: deliberate deviations from the TypeScript reference implementation
