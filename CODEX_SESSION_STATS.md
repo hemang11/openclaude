@@ -8,6 +8,23 @@ Source folders: `~/.codex/sessions/2026/04/02` and `~/.codex/sessions/2026/04/03
 - Read counters from `payload.info.total_token_usage`.
 - No cross-file deduplication was applied; each JSONL file is treated as one recorded session file.
 
+## Important Note
+
+The large additive totals below are not the same thing as a single-thread "how many tokens did I personally use in one main session" number.
+
+- `83` session files were found in these two folders.
+- `38` are top-level sessions.
+- `45` are forked subagent sessions.
+- Forked sessions inherit parent context, so summing every file is a valid "all provider-visible tokens across all runs" view, but it heavily overstates the main-thread-only view.
+
+## Top-Level vs Forked Session View
+
+| Scope | Sessions | Input | Cached Input | Output | Reasoning | Total |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Top-level sessions only | 38 | 1,143,131,499 | 1,102,991,360 | 4,258,242 | 1,782,366 | 1,147,389,741 |
+| Forked subagent sessions only | 45 | 17,745,995,607 | 17,255,585,408 | 69,064,841 | 27,855,941 | 17,815,060,448 |
+| All session files combined | 83 | 18,887,536,654 | 18,357,048,576 | 73,308,000 | 29,636,295 | 18,960,844,654 |
+
 ## Overall Totals
 
 | Metric | Value |
